@@ -55,23 +55,9 @@ else
   export KUBECONFIG="${HOME}/.kube/config"
 fi
 
-# Prompt customization helpers
-function detect_environment() {
-  if command -v cloud-id &> /dev/null; then
-    if cloud-id 2>&1 | grep -q aws; then
-      echo "AWS"
-    elif cloud-id 2>&1 | grep -q gce; then
-      echo "GCP"
-    fi
-  else
-    echo ""
-  fi
-}
-
 function set_custom_prompt() {
-  local env os prompt_env prompt_host prompt_os custom_prompt
+  local env os prompt_host prompt_os custom_prompt
 
-  env="$(detect_environment)"
   SHORT_HOSTNAME=$(hostname -s)
 
   if [ -f /etc/os-release ]; then
@@ -86,7 +72,6 @@ function set_custom_prompt() {
     OS_NAME="UB"
   fi
 
-  prompt_env="%{$fg[cyan]%}${env}%{$reset_color%}"
   prompt_host="%{$fg[blue]%}${SHORT_HOSTNAME}%{$reset_color%}"
   prompt_os=""
   if [[ -n "$OS_NAME" ]]; then
@@ -95,9 +80,9 @@ function set_custom_prompt() {
 
   if [[ -n "$env" ]]; then
     if [[ -n "$prompt_os" ]]; then
-      custom_prompt="${prompt_env}-${prompt_host}-${prompt_os}"
+      custom_prompt="${prompt_host}-${prompt_os}"
     else
-      custom_prompt="${prompt_env}-${prompt_host}"
+      custom_prompt="${prompt_host}"
     fi
   else
     if [[ -n "$prompt_os" ]]; then
