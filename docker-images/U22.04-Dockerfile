@@ -15,7 +15,7 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y ansible \
     && apt-get install -y wget gpg \
     && apt-get install -y apt-transport-https \
-    && apt-get install -y zsh 
+    && apt-get install -y zsh
 
 RUN chsh -s $(which zsh)
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
