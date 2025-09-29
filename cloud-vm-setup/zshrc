@@ -145,7 +145,8 @@ export GO111MODULE=on
 
 #. "$HOME/.local/bin/env"
 if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
-  PROMPT="(%~) ➜ "
+  PROMPT_CWD="%{$fg[red]%}(%~)%{$reset_color%}"
+  PROMPT='$PROMPT_CWD ➜ '
 else
   set_custom_prompt
 fi
